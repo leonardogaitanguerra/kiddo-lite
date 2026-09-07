@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solicitud — Kiddo Lite</title>
+<meta name="description" content="Diligencia tu solicitud para asegurar la educación de tus hijos con Kiddo Lite, emitido por Seguros Bolívar." />
+<link rel="icon" href="assets/img/simbolo-kiddo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo"><img src="assets/img/logo-kiddo-color.png" alt="Kiddo" /></a>
+    <nav class="nav-links">
+      <a href="index.html#coberturas">Coberturas</a>
+      <a href="index.html#planes">Planes</a>
+      <a href="index.html#preguntas">Preguntas</a>
+    </nav>
+    <div class="header-actions">
+      <span class="notice-banner" style="display:none" id="banner-no-pago">No pedimos datos de tarjeta o cuenta aquí</span>
+    </div>
+  </div>
+</header>
+
+<div class="form-header">
+  <div class="container">
+    <div>
+      <span class="plan-pill">Plan <span id="pill-plan">M</span> · <span id="pill-periodo">Mensual</span></span>
+    </div>
+    <a href="index.html#planes" id="cambiar-plan" class="btn btn-ghost btn-sm">Cambiar plan</a>
+  </div>
+  <div class="container">
+    <div class="progress-track">
+      <span class="step-bar done" data-step="1"></span>
+      <span class="step-bar" data-step="2"></span>
+      <span class="step-bar" data-step="3"></span>
+      <span class="step-bar" data-step="4"></span>
+    </div>
+    <ul class="progress-steps">
+      <li class="active" data-step="1">Tomador</li>
+      <li data-step="2">Asegurado</li>
+      <li data-step="3">Beneficiarios</li>
+      <li data-step="4">Revisión y pago</li>
+    </ul>
+  </div>
+</div>
+
+<div class="form-shell">
+  <div class="container">
+
+    <form id="form-solicitud" novalidate>
+
+      <!-- Paso 1: Plan + Tomador -->
+      <div class="form-panel active" data-panel="1">
+        <span class="eyebrow">Paso 1 de 4</span>
+        <h2>Tu plan y datos del tomador</h2>
+        <p class="hint">El tomador es quien firma y paga la solicitud. Puede ser la misma persona asegurada.</p>
+
+        <div class="field-grid">
+          <div class="field full">
+            <label>Plan <span class="req">*</span></label>
+            <div class="radio-row" id="radios-plan">
+              <label class="radio-chip"><input type="radio" name="plan" value="S" /> Plan S · Esencial</label>
+              <label class="radio-chip"><input type="radio" name="plan" value="M" /> Plan M · Integral</label>
+              <label class="radio-chip"><input type="radio" name="plan" value="L" /> Plan L · Premium</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label>Periodicidad de pago <span class="req">*</span></label>
+            <div class="radio-row" id="radios-periodo">
+              <label class="radio-chip"><input type="radio" name="periodo" value="mensual" /> Mensual</label>
+              <label class="radio-chip"><input type="radio" name="periodo" value="anual" /> Anual</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label>Nombre completo del tomador <span class="req">*</span></label>
+            <input type="text" name="tomadorNombre" placeholder="Nombres y apellidos" autocomplete="name" />
+            <span class="error-msg">Ingresa el nombre del tomador.</span>
+          </div>
+          <div class="field full">
+            <label class="check-row" style="font-weight:600;color:var(--tinta)">
+              <input type="checkbox" name="tomadorEsAsegurado" checked />
+              El tomador es la misma persona que el asegurado
+            </label>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-morado" data-next>Continuar</button>
+        </div>
+      </div>
+
+      <!-- Paso 2: Asegurado -->
+      <div class="form-panel" data-panel="2">
+        <span class="eyebrow">Paso 2 de 4</span>
+        <h2>Datos del asegurado</h2>
+        <p class="hint">Sin declaración de salud ni exámenes médicos: solo necesitamos tus datos de identificación y contacto.</p>
+
+        <div class="field-grid">
+          <div class="field full">
+            <label>Nombre completo del asegurado <span class="req">*</span></label>
+            <input type="text" name="aseguradoNombre" autocomplete="name" />
+            <span class="error-msg">Ingresa el nombre del asegurado.</span>
+          </div>
+
+          <div class="field">
+            <label>Tipo de documento <span class="req">*</span></label>
+            <select name="tipoDocumento">
+              <option value="">Selecciona</option>
+              <option value="CC">Cédula de ciudadanía (C.C.)</option>
+              <option value="CE">Cédula de extranjería (C.E.)</option>
+              <option value="PA">Pasaporte (PA)</option>
+            </select>
+            <span class="error-msg">Selecciona el tipo de documento.</span>
+          </div>
+          <div class="field">
+            <label>No. de documento de identidad <span class="req">*</span></label>
+            <input type="text" name="numeroDocumento" inputmode="numeric" />
+            <span class="error-msg">Ingresa un número de documento válido.</span>
+          </div>
+
+          <div class="field">
+            <label>Fecha de nacimiento <span class="req">*</span></label>
+            <input type="date" name="fechaNacimiento" />
+            <span class="error-msg">Ingresa una fecha de nacimiento válida.</span>
+          </div>
+          <div class="field">
+            <label>Fecha de expedición del documento <span class="req">*</span></label>
+            <input type="date" name="fechaExpedicion" />
+            <span class="error-msg">Ingresa la fecha de expedición.</span>
+          </div>
+
+          <div class="field full">
+            <label>Sexo <span class="req">*</span></label>
+            <div class="radio-row" id="radios-sexo">
+              <label class="radio-chip"><input type="radio" name="sexo" value="F" /> Femenino</label>
+              <label class="radio-chip"><input type="radio" name="sexo" value="M" /> Masculino</label>
+            </div>
+          </div>
+
+          <div id="banner-edad" class="age-banner field full"></div>
+
+          <div class="field">
+            <label>Teléfono celular <span class="req">*</span></label>
+            <input type="tel" name="telefonoCelular" inputmode="numeric" placeholder="3XXXXXXXXX" />
+            <span class="error-msg">Ingresa un celular válido (10 dígitos).</span>
+          </div>
+          <div class="field">
+            <label>Teléfono de oficina <span class="opt">(opcional)</span></label>
+            <input type="tel" name="telefonoOficina" inputmode="numeric" />
+          </div>
+
+          <div class="field">
+            <label>Correo electrónico <span class="req">*</span></label>
+            <input type="email" name="correo" autocomplete="email" />
+            <span class="error-msg">Ingresa un correo válido.</span>
+          </div>
+          <div class="field">
+            <label>Ocupación <span class="req">*</span></label>
+            <input type="text" name="ocupacion" />
+            <span class="error-msg">Ingresa la ocupación.</span>
+          </div>
+
+          <div class="field">
+            <label>Ciudad de residencia <span class="req">*</span></label>
+            <input type="text" name="ciudad" />
+            <span class="error-msg">Ingresa la ciudad de residencia.</span>
+          </div>
+          <div class="field">
+            <label>Departamento de residencia <span class="req">*</span></label>
+            <input type="text" name="departamento" />
+            <span class="error-msg">Ingresa el departamento de residencia.</span>
+          </div>
+          <div class="field full">
+            <label>Dirección de residencia <span class="req">*</span></label>
+            <input type="text" name="direccion" />
+            <span class="error-msg">Ingresa la dirección de residencia.</span>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-ghost" data-prev>Atrás</button>
+          <button type="button" class="btn btn-morado" data-next>Continuar</button>
+        </div>
+      </div>
+
+      <!-- Paso 3: Beneficiarios -->
+      <div class="form-panel" data-panel="3">
+        <span class="eyebrow">Paso 3 de 4</span>
+        <h2>Beneficiarios</h2>
+        <p class="hint">Opcional. Si no diligencias un beneficiario, la ley determina quién recibe la indemnización (herederos). Cada póliza cubre a un solo hijo, por lo que el beneficiario recibe el 100% de esta cobertura.</p>
+
+        <div class="mt-24">
+          <div class="beneficiario-row">
+            <div class="field">
+              <label>Nombre del beneficiario <span class="opt">(opcional)</span></label>
+              <input type="text" id="benef-nombre" />
+            </div>
+            <div class="field">
+              <label>Parentesco <span class="opt">(opcional)</span></label>
+              <input type="text" id="benef-parentesco" placeholder="Hijo(a), cónyuge..." />
+            </div>
+            <div class="field">
+              <label>% asignado</label>
+              <div class="pct-fixed">100%</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-ghost btn-sm add-beneficiario" id="btn-agregar-beneficiario">+ Agregar otro beneficiario</button>
+
+        <div class="notice-banner mt-24" id="alerta-beneficiario-adicional" style="display:none">
+          Ya tienes un beneficiario asignado con el 100% de esta póliza. Cada póliza cubre a un solo hijo.
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-ghost" data-prev>Atrás</button>
+          <button type="button" class="btn btn-morado" data-next>Continuar</button>
+        </div>
+      </div>
+
+      <!-- Paso 4: Revisión y pago -->
+      <div class="form-panel" data-panel="4">
+        <span class="eyebrow">Paso 4 de 4</span>
+        <h2>Revisa tu solicitud</h2>
+        <p class="hint">Verifica que todo esté correcto antes de enviar. Esta plataforma no captura datos de pago.</p>
+
+        <div class="review-block" id="review-block"></div>
+
+        <div class="prima-total mt-24">
+          <div>
+            <div style="font-size:12px;opacity:.8">Prima total estimada</div>
+            <div class="amount" id="review-prima">—</div>
+          </div>
+          <div style="font-size:12px;text-align:right;opacity:.85">Plan <span id="review-plan-tag">—</span><br /><span id="review-periodo-tag">—</span></div>
+        </div>
+
+        <div class="legal-box">
+          <label class="check-row">
+            <input type="checkbox" name="autDatos" />
+            Autorizo a Kiddo Tech SAS el tratamiento de mis datos personales conforme a la Ley 1581 de 2012.
+            <a href="privacidad.html" target="_blank" rel="noopener">Leer política de privacidad completa</a>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" name="declaracionVeraz" />
+            Declaro que la información suministrada es veraz y he leído las condiciones generales de la póliza.
+          </label>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-ghost" data-prev>Atrás</button>
+          <button type="submit" class="btn btn-naranja" id="btn-enviar" disabled>Enviar solicitud</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Confirmación -->
+    <div class="form-panel confirm-panel" id="panel-confirmacion">
+      <div class="confirm-icon">✓</div>
+      <h2>¡Solicitud recibida!</h2>
+      <p>Tu solicitud fue guardada. El siguiente paso es completar el pago de tu prima.</p>
+      <div class="confirm-id" id="folio-id"></div>
+
+      <div class="pay-options" id="pay-options"></div>
+
+      <div class="notice-banner mt-24" id="cta-otro-hijo" style="display:none">
+        ¿Tienes otro hijo? Cada póliza cubre a un solo hijo. <a href="index.html#planes">Quiero un plan adicional para otro hijo →</a>
+      </div>
+
+      <p class="hint mt-24">¿Dudas? Escríbenos a <a href="mailto:hola@somoskiddo.com">hola@somoskiddo.com</a> o por <a href="https://wa.me/15175144120" target="_blank" rel="noopener">WhatsApp</a> (+57 302 668 2981).</p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-ghost" id="btn-imprimir-resumen">Descargar / imprimir resumen</button>
+        <a href="index.html" class="btn btn-ghost">Volver al inicio</a>
+      </div>
+    </div>
+
+    <div id="resumen-imprimible"></div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-bottom" style="border-top:none;padding-top:0">
+    <span>© 2026 Kiddo Lite.</span>
+    <span>El seguro es emitido y garantizado por Seguros Bolívar S.A. Sujeto a condiciones generales de la póliza y aceptación individual.</span>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/solicitud.js"></script>
+</body>
+</html>
