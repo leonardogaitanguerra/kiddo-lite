@@ -713,6 +713,42 @@ details.faq-item p {
   font-size: 14px;
 }
 
+/* ---------- Kiddo para Instituciones ---------- */
+.institucion-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  background: var(--gris-100);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 34px 38px;
+}
+
+.institucion-banner-copy {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.institucion-banner-copy .icon-circle {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  font-size: 26px;
+}
+
+.institucion-banner-copy h3 {
+  color: var(--morado-oscuro);
+  margin-bottom: 6px;
+}
+
+.institucion-banner-copy p {
+  max-width: 460px;
+  font-size: 14px;
+}
+
 /* ---------- CTA final ---------- */
 .cta-final {
   background: linear-gradient(135deg, var(--morado) 0%, var(--morado-oscuro) 100%);
@@ -1398,6 +1434,16 @@ details.faq-item p {
     flex-direction: column;
     text-align: center;
     padding: 40px 26px;
+  }
+
+  .institucion-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 24px;
+  }
+
+  .institucion-banner-copy {
+    flex-direction: column;
   }
 
   .pay-options {
