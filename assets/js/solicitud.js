@@ -257,7 +257,7 @@
       .map((plan) => {
         const activo = plan.id === state.plan;
         const valor = tarifa ? tarifa[state.periodo][plan.id] : null;
-        const link = KIDDO.enlacesPago[plan.id][state.periodo];
+        const link = tarifa ? tarifa.enlacesPago[state.periodo][plan.id] : "#";
         return `
         <div class="pay-option" style="${activo ? "border-color:var(--morado);box-shadow:var(--sombra-sm)" : ""}">
           <strong>Plan ${plan.id}${activo ? " (elegido)" : ""}</strong>

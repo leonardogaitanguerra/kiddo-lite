@@ -91,6 +91,9 @@ const KIDDO = {
   ],
 
   // Tarifas 100% confirmadas por producto — Diapositiva "Tarifas Vigentes por Rango de Edad".
+  // enlacesPago: checkout de Mercado Pago por rango de edad + periodicidad + plan
+  // (Fuente: "Links cobro suscripcion.xlsx", hoja "Links cobro"). La plataforma NO
+  // captura datos de tarjeta/cuenta: estos botones llevan directo a la pasarela de Mercado Pago.
   tarifas: [
     {
       rango: "18 a 30 años",
@@ -98,6 +101,10 @@ const KIDDO = {
       edadMax: 30,
       anual: { S: 227700, M: 465300, L: 628100 },
       mensual: { S: 22770, M: 46530, L: 62810 },
+      enlacesPago: {
+        anual: { S: "https://mpago.la/1NGSedT", M: "https://mpago.la/299aQrN", L: "https://mpago.la/2xcqUvk" },
+        mensual: { S: "https://mpago.la/274CAQZ", M: "https://mpago.la/22egsio", L: "https://mpago.la/1QSq1Wq" },
+      },
     },
     {
       rango: "31 a 45 años",
@@ -105,6 +112,10 @@ const KIDDO = {
       edadMax: 45,
       anual: { S: 240900, M: 491700, L: 683100 },
       mensual: { S: 24090, M: 49170, L: 68310 },
+      enlacesPago: {
+        anual: { S: "https://mpago.la/145VVdX", M: "https://mpago.la/33ESyFu", L: "https://mpago.la/1MWVkMv" },
+        mensual: { S: "https://mpago.la/1e1Sp8X", M: "https://mpago.la/1qZb9AG", L: "https://mpago.la/32nCtNq" },
+      },
     },
     {
       rango: "46 a 65 años",
@@ -112,23 +123,26 @@ const KIDDO = {
       edadMax: 65,
       anual: { S: 290400, M: 605000, L: 800800 },
       mensual: { S: 29040, M: 60500, L: 80080 },
+      enlacesPago: {
+        anual: { S: "https://mpago.la/2yQc9vM", M: "https://mpago.la/1xjR1hv", L: "https://mpago.la/29k7ccS" },
+        mensual: { S: "https://mpago.la/2dPKSG9", M: "https://mpago.la/1LjFbpY", L: "https://mpago.la/1yNHtvQ" },
+      },
     },
     {
+      // Rango sin links en "Links cobro suscripcion.xlsx" — no es alcanzable en el flujo real:
+      // la elegibilidad de ingreso corta en 65 años (ver `elegibilidad.edadIngresoMax`), así que
+      // nadie llega al checkout con esta tarifa. Se deja "#" solo para no romper la búsqueda por edad.
       rango: "Mayor a 65 años",
       edadMin: 66,
       edadMax: 200,
       anual: { S: 350900, M: 657800, L: 964700 },
       mensual: { S: 35090, M: 65780, L: 96470 },
+      enlacesPago: {
+        anual: { S: "#", M: "#", L: "#" },
+        mensual: { S: "#", M: "#", L: "#" },
+      },
     },
   ],
-
-  // TODO: reemplazar cada "#" por el link de pago real (Wompi/PayU/pasarela Kiddo) por plan y periodicidad.
-  // La plataforma NO captura datos de tarjeta/cuenta: estos botones deben llevar a una pasarela externa.
-  enlacesPago: {
-    S: { anual: "#", mensual: "#" },
-    M: { anual: "#", mensual: "#" },
-    L: { anual: "#", mensual: "#" },
-  },
 
   // TODO: endpoint donde se enviará la solicitud diligenciada (Airtable / HubSpot / backend Kiddo).
   // Mientras no exista, el formulario guarda la solicitud en localStorage y permite descargarla/imprimirla.
