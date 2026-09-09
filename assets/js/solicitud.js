@@ -237,7 +237,7 @@
       console.warn("No se pudo guardar en localStorage", e);
     }
 
-    // TODO: reemplazar por el envío real al backend/CRM (Airtable, HubSpot, etc.) cuando exista KIDDO.formEndpoint.
+    // Envía la solicitud a la función de Netlify que la escribe en Airtable (ver netlify/functions/submit-solicitud.js).
     if (KIDDO.formEndpoint) {
       fetch(KIDDO.formEndpoint, {
         method: "POST",
@@ -332,6 +332,11 @@
     datos.folio = generarFolio();
     datos.fechaEnvio = new Date().toISOString();
     datos.producto = KIDDO.producto;
+
+    const edad = kiddoCalcularEdad(datos.fechaNacimiento);
+    const tarifa = kiddoTarifaPorEdad(edad);
+    datos.edadAsegurado = edad;
+    datos.prima = tarifa ? tarifa[datos.periodo][datos.plan] : null;
 
     guardarSolicitud(datos);
     ultimaSolicitud = datos;

@@ -144,9 +144,9 @@ const KIDDO = {
     },
   ],
 
-  // TODO: endpoint donde se enviará la solicitud diligenciada (Airtable / HubSpot / backend Kiddo).
-  // Mientras no exista, el formulario guarda la solicitud en localStorage y permite descargarla/imprimirla.
-  formEndpoint: "",
+  // Función serverless de Netlify que escribe la solicitud en Airtable (base "Kiddo Lite - Solicitudes").
+  // La solicitud también queda guardada en localStorage como respaldo/para el resumen imprimible.
+  formEndpoint: "/.netlify/functions/submit-solicitud",
 };
 
 function kiddoFormatCOP(valor) {
