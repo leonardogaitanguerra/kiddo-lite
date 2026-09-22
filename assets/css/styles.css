@@ -750,6 +750,26 @@ details.faq-item p {
   font-size: 14px;
 }
 
+/* ---------- Respaldado por Seguros Bolívar ---------- */
+.respaldo-section {
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+  text-align: center;
+}
+
+.respaldo-section h2 {
+  color: var(--morado-oscuro);
+}
+
+.respaldo-section img {
+  height: 100px;
+  background: var(--blanco);
+  border-radius: 18px;
+  padding: 16px 24px;
+  box-shadow: var(--sombra-sm);
+}
+
 /* ---------- CTA final ---------- */
 .cta-final {
   background: linear-gradient(135deg, var(--morado) 0%, var(--morado-oscuro) 100%);
@@ -811,23 +831,6 @@ details.faq-item p {
 .footer-logo img {
   height: 30px;
   margin-bottom: 14px;
-}
-
-.respaldo-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 32px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #cfc7e6;
-}
-
-.respaldo-footer img {
-  height: 44px;
-  background: var(--blanco);
-  border-radius: 10px;
-  padding: 6px 10px;
 }
 
 .footer-bottom {
