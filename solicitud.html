@@ -20,9 +20,7 @@
       <a href="index.html#planes">Planes</a>
       <a href="index.html#preguntas">Preguntas</a>
     </nav>
-    <div class="header-actions">
-      <span class="notice-banner" style="display:none" id="banner-no-pago">No pedimos datos de tarjeta o cuenta aquí</span>
-    </div>
+    <div class="header-actions"></div>
   </div>
 </header>
 
@@ -228,7 +226,7 @@
       <div class="form-panel" data-panel="4">
         <span class="eyebrow">Paso 4 de 4</span>
         <h2>Revisa tu solicitud</h2>
-        <p class="hint">Verifica que todo esté correcto antes de enviar. Esta plataforma no captura datos de pago.</p>
+        <p class="hint">Verifica que todo esté correcto antes de enviar. Esta plataforma nunca captura el número completo de tu tarjeta.</p>
 
         <div class="review-block" id="review-block"></div>
 
@@ -269,10 +267,42 @@
     <div class="form-panel confirm-panel" id="panel-confirmacion">
       <div class="confirm-icon">✓</div>
       <h2>¡Solicitud recibida!</h2>
-      <p>Tu solicitud fue guardada. El siguiente paso es completar el pago de tu prima.</p>
+      <p>Tu solicitud fue guardada. El siguiente paso es elegir cómo vas a pagar tu prima.</p>
       <div class="confirm-id" id="folio-id"></div>
 
-      <div class="pay-options" id="pay-options"></div>
+      <div class="medio-pago-shell" id="medio-pago-shell">
+        <label class="mp-label">Medio de pago <span class="req">*</span></label>
+        <div class="radio-row" id="radios-medio-pago">
+          <label class="radio-chip"><input type="radio" name="medioPago" value="ahorro" /> Débito cuenta de ahorro</label>
+          <label class="radio-chip"><input type="radio" name="medioPago" value="corriente" /> Débito cuenta corriente</label>
+          <label class="radio-chip"><input type="radio" name="medioPago" value="tarjeta" /> Tarjeta de crédito/débito</label>
+        </div>
+
+        <div class="field-grid mt-24" id="campos-cuenta-pago" style="display:none">
+          <div class="field">
+            <label>Número de cuenta <span class="req">*</span></label>
+            <input type="text" id="mp-numero-cuenta" inputmode="numeric" />
+          </div>
+          <div class="field">
+            <label>Entidad bancaria <span class="req">*</span></label>
+            <input type="text" id="mp-entidad-bancaria" />
+          </div>
+        </div>
+
+        <div class="notice-banner mt-24" id="aviso-tarjeta" style="display:none">
+          Te enviaremos por correo las instrucciones de pago con tarjeta, junto con la firma de la solicitud.
+        </div>
+
+        <span class="error-msg" id="mp-error" style="display:none">Completa los datos de tu medio de pago.</span>
+
+        <button type="button" class="btn btn-naranja btn-block mt-24" id="btn-confirmar-pago">Confirmar medio de pago</button>
+      </div>
+
+      <div class="confirm-final" id="confirm-final" style="display:none">
+        <div class="confirm-icon">✉️</div>
+        <h3>Revisa tu correo</h3>
+        <p>Te enviaremos las instrucciones para firmar la solicitud de seguro y así confirmar y terminar el proceso de emisión.</p>
+      </div>
 
       <div class="notice-banner mt-24" id="cta-otro-hijo" style="display:none">
         ¿Tienes otro hijo? Cada póliza cubre a un solo hijo. <a href="index.html#planes">Quiero un plan adicional para otro hijo →</a>

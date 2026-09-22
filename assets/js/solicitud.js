@@ -1,6 +1,8 @@
 // Formulario de Solicitud Individual — Kiddo Lite.
-// Captura tomador, asegurado y beneficiarios. NO captura datos de pago (tarjeta/cuenta):
-// el paso final solo enlaza a la pasarela de pago externa de cada plan (ver KIDDO.enlacesPago en data.js).
+// Captura tomador, asegurado, beneficiarios y, al final, el medio de pago para el débito de la
+// prima: cuenta de ahorro/corriente (número + entidad) o tarjeta. Para tarjeta NO se captura
+// ningún dato de la tarjeta (ni número, ni vencimiento): solo se guarda la elección del medio y
+// las instrucciones de pago se envían por correo junto con la firma de la solicitud.
 
 (function () {
   const form = document.getElementById("form-solicitud");
@@ -13,6 +15,7 @@
   };
 
   let ultimaSolicitud = null;
+  let ultimoRecordId = null;
 
   // ---------- Helpers de query string ----------
   function leerQuery() {
@@ -228,7 +231,7 @@
     )}`;
   }
 
-  function guardarSolicitud(payload) {
+  async function guardarSolicitud(payload) {
     try {
       const previas = JSON.parse(localStorage.getItem("kiddo_solicitudes") || "[]");
       previas.push(payload);
@@ -238,38 +241,84 @@
     }
 
     // Envía la solicitud a la función de Netlify que la escribe en Airtable (ver netlify/functions/submit-solicitud.js).
-    if (KIDDO.formEndpoint) {
-      fetch(KIDDO.formEndpoint, {
+    if (!KIDDO.formEndpoint) return null;
+    try {
+      const res = await fetch(KIDDO.formEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }).catch((e) => console.warn("No se pudo enviar la solicitud al backend", e));
+      });
+      const data = await res.json();
+      return data.recordId || null;
+    } catch (e) {
+      console.warn("No se pudo enviar la solicitud al backend", e);
+      return null;
     }
   }
 
-  function pintarOpcionesPago(folio) {
-    const datos = new FormData(form);
-    const edad = kiddoCalcularEdad(datos.get("fechaNacimiento"));
-    const tarifa = kiddoTarifaPorEdad(edad);
+  // ---------- Medio de pago ----------
+  function initMedioPago() {
+    const chips = document.querySelectorAll("#radios-medio-pago .radio-chip");
+    chips.forEach((chip) => {
+      const input = chip.querySelector("input");
+      input.addEventListener("change", () => {
+        chips.forEach((c) => c.classList.toggle("checked", c.querySelector("input").checked));
+        const esTarjeta = input.value === "tarjeta";
+        document.getElementById("campos-cuenta-pago").style.display = esTarjeta ? "none" : "grid";
+        document.getElementById("aviso-tarjeta").style.display = esTarjeta ? "block" : "none";
+        document.getElementById("mp-error").style.display = "none";
+      });
+    });
+  }
 
-    const cont = document.getElementById("pay-options");
-    cont.innerHTML = Object.values(KIDDO.planes)
-      .map((plan) => {
-        const activo = plan.id === state.plan;
-        const valor = tarifa ? tarifa[state.periodo][plan.id] : null;
-        const link = tarifa ? tarifa.enlacesPago[state.periodo][plan.id] : "#";
-        return `
-        <div class="pay-option" style="${activo ? "border-color:var(--morado);box-shadow:var(--sombra-sm)" : ""}">
-          <strong>Plan ${plan.id}${activo ? " (elegido)" : ""}</strong>
-          <span class="amount">${valor ? kiddoFormatCOP(valor) : "—"}</span>
-          <a class="btn ${activo ? "btn-naranja" : "btn-ghost"} btn-sm" target="_blank" rel="noopener"
-             href="${link === "#" ? "#" : link}"
-             onclick="${link === "#" ? "alert('Pasarela de pago pendiente de configurar para este plan.');return false;" : ""}">
-             Ir a pagar
-          </a>
-        </div>`;
-      })
-      .join("");
+  async function confirmarMedioPago() {
+    const medioPago = document.querySelector('input[name="medioPago"]:checked')?.value;
+    const errorEl = document.getElementById("mp-error");
+
+    if (!medioPago) {
+      errorEl.textContent = "Elige un medio de pago.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    let numeroCuenta = "";
+    let entidadBancaria = "";
+
+    if (medioPago !== "tarjeta") {
+      numeroCuenta = document.getElementById("mp-numero-cuenta").value.trim();
+      entidadBancaria = document.getElementById("mp-entidad-bancaria").value.trim();
+      if (!numeroCuenta || !entidadBancaria) {
+        errorEl.textContent = "Completa el número de cuenta y la entidad bancaria.";
+        errorEl.style.display = "block";
+        return;
+      }
+    }
+    errorEl.style.display = "none";
+
+    const btn = document.getElementById("btn-confirmar-pago");
+    const textoOriginal = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Guardando...";
+
+    try {
+      if (KIDDO.medioPagoEndpoint && ultimoRecordId) {
+        await fetch(KIDDO.medioPagoEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ recordId: ultimoRecordId, medioPago, numeroCuenta, entidadBancaria }),
+        });
+      }
+    } catch (e) {
+      console.warn("No se pudo guardar el medio de pago", e);
+    }
+
+    btn.disabled = false;
+    btn.textContent = textoOriginal;
+
+    document.getElementById("medio-pago-shell").style.display = "none";
+    document.getElementById("confirm-final").style.display = "grid";
+    document.getElementById("cta-otro-hijo").style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // ---------- Resumen imprimible (PDF vía "Imprimir a PDF" del navegador) ----------
@@ -321,7 +370,7 @@
     window.print();
   }
 
-  function enviarSolicitud(e) {
+  async function enviarSolicitud(e) {
     e.preventDefault();
     if (!validarPaso(4)) return;
 
@@ -338,7 +387,11 @@
     datos.edadAsegurado = edad;
     datos.prima = tarifa ? tarifa[datos.periodo][datos.plan] : null;
 
-    guardarSolicitud(datos);
+    const btnEnviar = document.getElementById("btn-enviar");
+    btnEnviar.disabled = true;
+    btnEnviar.textContent = "Enviando...";
+
+    ultimoRecordId = await guardarSolicitud(datos);
     ultimaSolicitud = datos;
 
     document.getElementById("form-solicitud").style.display = "none";
@@ -346,7 +399,6 @@
     const confirm = document.getElementById("panel-confirmacion");
     confirm.classList.add("active");
     document.getElementById("folio-id").textContent = `N.º de solicitud: ${datos.folio}`;
-    pintarOpcionesPago(datos.folio);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -384,11 +436,8 @@
 
     document.getElementById("btn-agregar-beneficiario").addEventListener("click", intentarAgregarOtroBeneficiario);
 
-    document.getElementById("pay-options").addEventListener("click", (e) => {
-      if (e.target.closest("a.btn")) {
-        document.getElementById("cta-otro-hijo").style.display = "block";
-      }
-    });
+    initMedioPago();
+    document.getElementById("btn-confirmar-pago").addEventListener("click", confirmarMedioPago);
 
     document.getElementById("btn-imprimir-resumen").addEventListener("click", generarResumenImprimible);
 

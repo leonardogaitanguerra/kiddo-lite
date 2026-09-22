@@ -88,7 +88,10 @@ exports.handler = async function (event) {
       return { statusCode: 502, body: JSON.stringify({ error: "airtable_error" }) };
     }
 
-    return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+    const data = await res.json();
+    const recordId = data.records && data.records[0] && data.records[0].id;
+
+    return { statusCode: 200, body: JSON.stringify({ ok: true, recordId }) };
   } catch (e) {
     console.error("Error de red al llamar a Airtable:", e);
     return { statusCode: 500, body: JSON.stringify({ error: "network_error" }) };

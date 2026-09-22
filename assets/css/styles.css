@@ -1243,26 +1243,37 @@ details.faq-item p {
   color: var(--morado);
 }
 
-.pay-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+.medio-pago-shell {
   width: 100%;
+  text-align: left;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 26px;
   margin-top: 10px;
 }
 
-.pay-option {
-  border: 1.5px solid var(--linea);
-  border-radius: var(--radio-sm);
-  padding: 18px;
-  display: grid;
-  gap: 10px;
+.mp-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin-bottom: 12px;
 }
 
-.pay-option .amount {
-  font-size: 20px;
-  font-weight: 800;
+.confirm-final {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.confirm-final h3 {
   color: var(--morado-oscuro);
+  font-size: 20px;
+}
+
+.confirm-final p {
+  max-width: 420px;
 }
 
 /* ---------- Utilidades ---------- */
@@ -1465,10 +1476,6 @@ details.faq-item p {
 
   .institucion-banner-copy {
     flex-direction: column;
-  }
-
-  .pay-options {
-    grid-template-columns: 1fr;
   }
 
   .steps-grid,

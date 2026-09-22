@@ -147,6 +147,10 @@ const KIDDO = {
   // Función serverless de Netlify que escribe la solicitud en Airtable (base "Kiddo Lite - Solicitudes").
   // La solicitud también queda guardada en localStorage como respaldo/para el resumen imprimible.
   formEndpoint: "/.netlify/functions/submit-solicitud",
+
+  // Función que guarda el medio de pago elegido (débito ahorro/corriente o tarjeta) sobre el
+  // mismo registro de la solicitud. Nunca envía datos de tarjeta, solo la elección del medio.
+  medioPagoEndpoint: "/.netlify/functions/submit-medio-pago",
 };
 
 function kiddoFormatCOP(valor) {
