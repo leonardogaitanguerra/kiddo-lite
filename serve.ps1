@@ -7,7 +7,7 @@ Write-Host "Serving $root on http://localhost:$port/"
 
 $mime = @{
   ".html" = "text/html"; ".css" = "text/css"; ".js" = "application/javascript";
-  ".png" = "image/png"; ".jpg" = "image/jpeg"; ".svg" = "image/svg+xml"; ".ico" = "image/x-icon";
+  ".png" = "image/png"; ".jpg" = "image/jpeg"; ".svg" = "image/svg+xml"; ".ico" = "image/x-icon"; ".avif" = "image/avif";
 }
 
 while ($listener.IsListening) {

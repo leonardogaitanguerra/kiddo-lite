@@ -385,6 +385,7 @@ p {
   opacity: 0.92;
 }
 
+
 /* ---------- Cómo funciona ---------- */
 .steps-grid {
   display: grid;
@@ -810,6 +811,23 @@ details.faq-item p {
 .footer-logo img {
   height: 30px;
   margin-bottom: 14px;
+}
+
+.respaldo-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 32px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #cfc7e6;
+}
+
+.respaldo-footer img {
+  height: 44px;
+  background: var(--blanco);
+  border-radius: 10px;
+  padding: 6px 10px;
 }
 
 .footer-bottom {

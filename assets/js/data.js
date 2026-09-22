@@ -100,7 +100,7 @@ const KIDDO = {
       edadMin: 18,
       edadMax: 30,
       anual: { S: 227700, M: 465300, L: 628100 },
-      mensual: { S: 22770, M: 46530, L: 62810 },
+      mensual: { S: 20700, M: 42300, L: 57100 },
       enlacesPago: {
         anual: { S: "https://mpago.la/1NGSedT", M: "https://mpago.la/299aQrN", L: "https://mpago.la/2xcqUvk" },
         mensual: { S: "https://mpago.la/274CAQZ", M: "https://mpago.la/22egsio", L: "https://mpago.la/1QSq1Wq" },
@@ -111,7 +111,7 @@ const KIDDO = {
       edadMin: 31,
       edadMax: 45,
       anual: { S: 240900, M: 491700, L: 683100 },
-      mensual: { S: 24090, M: 49170, L: 68310 },
+      mensual: { S: 21900, M: 44700, L: 62100 },
       enlacesPago: {
         anual: { S: "https://mpago.la/145VVdX", M: "https://mpago.la/33ESyFu", L: "https://mpago.la/1MWVkMv" },
         mensual: { S: "https://mpago.la/1e1Sp8X", M: "https://mpago.la/1qZb9AG", L: "https://mpago.la/32nCtNq" },
@@ -122,7 +122,7 @@ const KIDDO = {
       edadMin: 46,
       edadMax: 65,
       anual: { S: 290400, M: 605000, L: 800800 },
-      mensual: { S: 29040, M: 60500, L: 80080 },
+      mensual: { S: 26400, M: 55000, L: 72800 },
       enlacesPago: {
         anual: { S: "https://mpago.la/2yQc9vM", M: "https://mpago.la/1xjR1hv", L: "https://mpago.la/29k7ccS" },
         mensual: { S: "https://mpago.la/2dPKSG9", M: "https://mpago.la/1LjFbpY", L: "https://mpago.la/1yNHtvQ" },
@@ -136,7 +136,7 @@ const KIDDO = {
       edadMin: 66,
       edadMax: 200,
       anual: { S: 350900, M: 657800, L: 964700 },
-      mensual: { S: 35090, M: 65780, L: 96470 },
+      mensual: { S: 31900, M: 59800, L: 87700 },
       enlacesPago: {
         anual: { S: "#", M: "#", L: "#" },
         mensual: { S: "#", M: "#", L: "#" },
