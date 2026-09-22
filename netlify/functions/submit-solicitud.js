@@ -63,6 +63,7 @@ exports.handler = async function (event) {
     "Beneficiario - Nombre": beneficiario.nombre,
     "Beneficiario - Parentesco": beneficiario.parentesco,
     "Beneficiario - %": beneficiario.porcentaje,
+    "Acepta Condiciones Producto": datos.autCondiciones === "on",
     "Autorización Ley 1581": datos.autDatos === "on",
     "Declaración Veraz": datos.declaracionVeraz === "on",
     "Código Producto": datos.producto && datos.producto.codigoProducto,
